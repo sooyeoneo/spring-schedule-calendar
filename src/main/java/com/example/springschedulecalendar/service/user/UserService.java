@@ -8,4 +8,7 @@ public interface UserService {
     SignUpResponseDto signUp(String userName, String password, String email);
 
     UserResponseDto findById(Long id);
+
+//    void updatePassword(Long id, String oldPassword, String newPassword);
+    void deleteUser(Long id, String password);
 }
