@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         if (!scheduleRepository.findById(id).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "사용자와 연관된 일정이 존재합니다.");
         }
-        matchPassword(id, password);
+//        matchPassword(id, password); SQL을 사용하여 user를 조회하고 password가 같은 지 확인한다. SQL은 동작 속도를 느리게 만들어 사용을 지양.
         userRepository.delete(findUser);
     }
 
