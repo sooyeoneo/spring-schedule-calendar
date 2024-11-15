@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ScheduleController {
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody CreateScheduleRequestDto dto) {
 
         ScheduleResponseDto scheduleResponseDto =
-                ScheduleService.save(
+                scheduleService.save(
                         dto.getUserId(),
                         dto.getTitle(),
                         dto.getContents()
@@ -63,16 +64,17 @@ public class ScheduleController {
     public ResponseEntity<ScheduleResponseDto> updateSchedule(
             @PathVariable Long id,
             @RequestBody UpdateScheduleRequestDto dto,
-            HttpServletRequest request
+            @SessionAttribute(name = "LOGIN_USER") UserResponseDto userResponseDto
     ) {
+        ScheduleResponseDto scheduleResponseDto = scheduleService.update(id, userResponseDto.getId(), dto.getTitle(), dto.getContents());
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);
     }
 
     // 일정 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
-            @PathVariable Long id, @RequestBody DeleteScheduleRequestDto dto){
-        scheduleService.delete(id,dto.getPassword());
+            @PathVariable Long id){
+        scheduleService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -24,17 +24,17 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true) // nullable = false로 null 허용 안 함.
+    @Column(nullable = false) // nullable = false로 null 허용 안 함.
     private String userName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Schedule> Schedules = new ArrayList<>();
+    private List<Schedule> schedules = new ArrayList<>();
 
     public User() {
 

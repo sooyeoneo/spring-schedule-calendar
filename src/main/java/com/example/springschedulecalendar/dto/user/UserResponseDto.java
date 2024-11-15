@@ -1,7 +1,10 @@
 package com.example.springschedulecalendar.dto.user;
 
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
+@Getter
 public class UserResponseDto {
     private final Long id;
     private final String userName;

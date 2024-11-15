@@ -1,5 +1,6 @@
 package com.example.springschedulecalendar.service.user;
 
+import com.example.springschedulecalendar.dto.user.LoginResponseDto;
 import com.example.springschedulecalendar.dto.user.SignUpResponseDto;
 import com.example.springschedulecalendar.dto.user.UserResponseDto;
 import com.example.springschedulecalendar.entity.user.User;
@@ -61,5 +62,14 @@ public class UserServiceImpl implements UserService {
         }
         matchPassword(id, password);
         userRepository.delete(findUser);
+    }
+
+    @Override
+    public LoginResponseDto login(String email, String password) {
+        User findUser = userRepository.findUserByEmailOrElseThrow(email);
+        if (!findUser.getPassword().equals(password)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀 번호가 일치하지 않습니다.");
+        }
+        return new LoginResponseDto(findUser.getId());
     }
 }

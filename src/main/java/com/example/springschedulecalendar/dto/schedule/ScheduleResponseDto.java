@@ -18,4 +18,11 @@ public class ScheduleResponseDto {
         this.title = title;
         this.contents = contents;
     }
+
+    public ScheduleResponseDto(Schedule schedule) {
+        this.id = schedule.getId();
+        this.userId = schedule.getUserId();
+        this.title = schedule.getTitle();
+        this.contents = schedule.getContents();
+    }
 }

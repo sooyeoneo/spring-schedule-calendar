@@ -53,7 +53,7 @@ public class UserController {
         HttpSession session = request.getSession();
 
         UserResponseDto loginUser = userService.findById(userId);
-        session.setAttribute(Const.LOGIN_USER,loginUser);
+        session.setAttribute("LOGIN_USER", loginUser);
     }
 
     //로그아웃. seesion 키 삭제.

@@ -39,7 +39,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     // 일정 전체 조회
     @Override
     public List<ScheduleResponseDto> findAll() {
-        return scheduleRepository.findAll().stream().map(ScheduleResponseDto::new).toList();
+        return scheduleRepository.findAll().stream().map(ScheduleResponseDto::new).toList(); // ScheduleResponseDto 를 인자로 받는 생성자를 만들어짐.
     }
 
     // 일정 선택 조회
@@ -64,19 +64,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     // 일정 삭제
     @Override
-    public void delete(Long id, String password){
+    public void delete(Long id){
 
         Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
-        matchPassword(findSchedule.getUserId(),password);
         scheduleRepository.delete(findSchedule);
-    }
-
-    // 비밀 번호 일치 여부 확인
-    private void matchPassword(String email, String password) {
-        User user = userRepository.findUserByEmailOrElseThrow(email);
-        if (!matches(password, user.getPassword())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀 번호가 일치하지 않습니다.");
-        }
-
     }
 }

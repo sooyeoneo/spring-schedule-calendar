@@ -1,5 +1,6 @@
 package com.example.springschedulecalendar.filter;
 
+import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -32,7 +33,7 @@ public class LoginFilter implements Filter {
         if (!isWhiteList(requestURI)) {
             HttpSession session = httpRequest.getSession(false);
 
-            if (session == null || session.getAttribute(Const.LOGIN_USER) == null) {
+            if (session == null || session.getAttribute( "LOGIN_USER") == null) {
                 throw new RuntimeException("로그인 해주세요.");
             }
         }
