@@ -36,7 +36,7 @@ public class Schedule extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "schedule", cascade = CascadeType.REMOVE, orphanRemoval = true)
+//    @OneToMany(mappedBy = "schedule", cascade = CascadeType.REMOVE, orphanRemoval = true)
 
     public Schedule(String title, String contents) {
         this.title = title;
@@ -45,5 +45,10 @@ public class Schedule extends BaseEntity {
 
     public Schedule() {
 
+    }
+
+    public Long getUserId() {
+        User user = this.getUser();
+        return user.getId();
     }
 }

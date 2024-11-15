@@ -6,26 +6,45 @@ import com.example.springschedulecalendar.entity.schedule.Schedule;
 import com.example.springschedulecalendar.entity.user.User;
 import com.example.springschedulecalendar.repository.schedule.ScheduleRepository;
 import com.example.springschedulecalendar.repository.user.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
-public class ScheduleServiceImpl {
+public class ScheduleServiceImpl implements ScheduleService {
 
     private final UserRepository userRepository;
     private final ScheduleRepository scheduleRepository;
 
+    // 일정 생성
     @Override
-    public ScheduleResponseDto save(Long userId, CreateScheduleRequestDto dto) {
+    public ScheduleResponseDto save(Long userId, String title, String contents) {
 
-        User findUser = userRepository.findUserOrElseThrow(userId);
+        User findUser = userRepository.findByIdOrElseThrow(userId);
 
-        Schedule schedule = new Schedule(dto.getTitle(), dto.getContents());
-        scheduleRepository.save(schedule);
+        Schedule schedule = new Schedule(title, contents);
+        schedule.setUser(findUser);
 
         scheduleRepository.save(schedule);
 
         return new ScheduleResponseDto(schedule.getId(), userId, schedule.getTitle(), schedule.getContents());
     }
+
+    // 일정 전체 조회
+    @Override
+    public List<ScheduleResponseDto> findAll() {
+        return scheduleRepository.findAll().stream().map(ScheduleResponseDto::new).toList();
+    }
+
+    // 일정 선택 조회
+    @Override
+    public ScheduleResponseDto findById(Long id) {
+        Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
+
+        return new ScheduleResponseDto(schedule.getId(), schedule.getUserId(), schedule.getTitle(),schedule.getContents());
+    }
+
 }
