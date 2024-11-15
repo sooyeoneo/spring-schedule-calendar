@@ -3,12 +3,13 @@ package com.example.springschedulecalendar.dto;
 import lombok.Getter;
 
 @Getter
-public class LoginRequestDto {
-
+public class SignupRequestDto {
+    private final String userName;
     private final String email;
     private final String password;
 
-    public LoginRequestDto(String email, String password) {
+    public SignupRequestDto(String userName, String email, String password) {
+        this.userName = userName;
         this.email = email;
         this.password = password;
     }

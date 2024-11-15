@@ -1,5 +1,8 @@
 package com.example.springschedulecalendar.dto;
 
+import lombok.Getter;
+
+@Getter
 public class LoginResponseDto {
 
     private final Long userId;
