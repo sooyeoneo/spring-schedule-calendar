@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 
 @Getter
-public class DeleteScheduleRequestDto {
+public class DeleteScheduleReqDto {
     private String password;
 
     @JsonCreator
-    public DeleteScheduleRequestDto(String password) {
+    public DeleteScheduleReqDto(String password) {
         this.password = password;
     }
 }

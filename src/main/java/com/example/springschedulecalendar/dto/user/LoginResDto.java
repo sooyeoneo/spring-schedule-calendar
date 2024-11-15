@@ -3,11 +3,11 @@ package com.example.springschedulecalendar.dto.user;
 import lombok.Getter;
 
 @Getter
-public class LoginResponseDto {
+public class LoginResDto {
 
     private final Long userId;
 
-    public LoginResponseDto(Long userId) {
+    public LoginResDto(Long userId) {
         this.userId = userId;
     }
 }

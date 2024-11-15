@@ -2,16 +2,14 @@ package com.example.springschedulecalendar.dto.schedule;
 
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
 @Getter
-public class CreateScheduleRequestDto {
-    private final Long userId;
+public class UpdateScheduleReqDto {
+    private final String password;
     private final String title;
     private final String contents;
 
-    public CreateScheduleRequestDto(Long userid, String title, String contents) {
-        this.userId = userid;
+    public UpdateScheduleReqDto(String password, String title, String contents) {
+        this.password = password;
         this.title = title;
         this.contents = contents;
     }

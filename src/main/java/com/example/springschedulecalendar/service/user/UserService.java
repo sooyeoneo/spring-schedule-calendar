@@ -1,17 +1,17 @@
 package com.example.springschedulecalendar.service.user;
 
-import com.example.springschedulecalendar.dto.user.LoginResponseDto;
-import com.example.springschedulecalendar.dto.user.SignUpResponseDto;
-import com.example.springschedulecalendar.dto.user.UserResponseDto;
+import com.example.springschedulecalendar.dto.user.LoginResDto;
+import com.example.springschedulecalendar.dto.user.SignUpResDto;
+import com.example.springschedulecalendar.dto.user.UserResDto;
 
 public interface UserService {
 
-    SignUpResponseDto signUp(String userName, String password, String email);
+    SignUpResDto signUp(String userName, String password, String email);
 
-    UserResponseDto findById(Long id);
+    UserResDto findById(Long id);
 
 //    void updatePassword(Long id, String oldPassword, String newPassword);
     void deleteUser(Long id, String password);
 
-    LoginResponseDto login(String email, String password);
+    LoginResDto login(String email, String password);
 }

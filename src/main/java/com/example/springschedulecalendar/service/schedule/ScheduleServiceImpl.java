@@ -1,17 +1,13 @@
 package com.example.springschedulecalendar.service.schedule;
 
-import com.example.springschedulecalendar.dto.schedule.CreateScheduleRequestDto;
-import com.example.springschedulecalendar.dto.schedule.ScheduleResponseDto;
+import com.example.springschedulecalendar.dto.schedule.ScheduleResDto;
 import com.example.springschedulecalendar.entity.schedule.Schedule;
 import com.example.springschedulecalendar.entity.user.User;
 import com.example.springschedulecalendar.repository.schedule.ScheduleRepository;
 import com.example.springschedulecalendar.repository.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -24,7 +20,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     // 일정 생성
     @Override
-    public ScheduleResponseDto save(Long userId, String title, String contents) {
+    public ScheduleResDto save(Long userId, String title, String contents) {
 
         User findUser = userRepository.findByIdOrElseThrow(userId);
 
@@ -33,21 +29,21 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         scheduleRepository.save(schedule);
 
-        return new ScheduleResponseDto(schedule.getId(), userId, schedule.getTitle(), schedule.getContents());
+        return new ScheduleResDto(schedule.getId(), userId, schedule.getTitle(), schedule.getContents());
     }
 
     // 일정 전체 조회
     @Override
-    public List<ScheduleResponseDto> findAll() {
-        return scheduleRepository.findAll().stream().map(ScheduleResponseDto::new).toList(); // ScheduleResponseDto 를 인자로 받는 생성자를 만들어짐.
+    public List<ScheduleResDto> findAll() {
+        return scheduleRepository.findAll().stream().map(ScheduleResDto::new).toList(); // ScheduleResponseDto 를 인자로 받는 생성자를 만들어짐.
     }
 
     // 일정 선택 조회
     @Override
-    public ScheduleResponseDto findById(Long id) {
+    public ScheduleResDto findById(Long id) {
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
 
-        return new ScheduleResponseDto(
+        return new ScheduleResDto(
                 schedule.getId(), schedule.getUser().getId(), schedule.getTitle(),schedule.getContents()
         );
     }
@@ -55,11 +51,11 @@ public class ScheduleServiceImpl implements ScheduleService {
     // 일정 수정
     @Transactional
     @Override
-    public ScheduleResponseDto update(Long id, Long userId, String title, String contents) {
+    public ScheduleResDto update(Long id, Long userId, String title, String contents) {
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
         schedule.updateSchedule(title, contents); // 수정일도 추가
 
-        return new ScheduleResponseDto(schedule.getId(), schedule.getUser().getId(), schedule.getTitle(), schedule.getContents());
+        return new ScheduleResDto(schedule.getId(), schedule.getUser().getId(), schedule.getTitle(), schedule.getContents());
     }
 
     // 일정 삭제

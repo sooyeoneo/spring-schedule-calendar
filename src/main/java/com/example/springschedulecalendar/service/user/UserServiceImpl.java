@@ -1,8 +1,8 @@
 package com.example.springschedulecalendar.service.user;
 
-import com.example.springschedulecalendar.dto.user.LoginResponseDto;
-import com.example.springschedulecalendar.dto.user.SignUpResponseDto;
-import com.example.springschedulecalendar.dto.user.UserResponseDto;
+import com.example.springschedulecalendar.dto.user.LoginResDto;
+import com.example.springschedulecalendar.dto.user.SignUpResDto;
+import com.example.springschedulecalendar.dto.user.UserResDto;
 import com.example.springschedulecalendar.entity.user.User;
 import com.example.springschedulecalendar.repository.schedule.ScheduleRepository;
 import com.example.springschedulecalendar.repository.user.UserRepository;
@@ -22,17 +22,17 @@ public class UserServiceImpl implements UserService {
     private final ScheduleRepository scheduleRepository;
 
     // 유저 생성
-    public SignUpResponseDto signUp(String userName, String email, String password) {
+    public SignUpResDto signUp(String userName, String email, String password) {
 
         User user = new User(userName, email, password);
 
         User saveUser = userRepository.save(user);
 
-        return new SignUpResponseDto(saveUser.getId(), saveUser.getUserName(), saveUser.getEmail());
+        return new SignUpResDto(saveUser.getId(), saveUser.getUserName(), saveUser.getEmail());
     }
 
     // 유저 id로 조회
-    public UserResponseDto findById(Long id) {
+    public UserResDto findById(Long id) {
 
         Optional<User> optionalUser = userRepository.findById(id);
 
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User findUser = optionalUser.get();
-        return new UserResponseDto(findUser.getId(), findUser.getUserName(), findUser.getEmail(), findUser.getCreatedAt(), findUser.getUpdatedAt());
+        return new UserResDto(findUser.getId(), findUser.getUserName(), findUser.getEmail(), findUser.getCreatedAt(), findUser.getUpdatedAt());
     }
 
     // 비밀번호 일치 여부 확인
@@ -66,11 +66,11 @@ public class UserServiceImpl implements UserService {
 
     // 유저 로그인
     @Override
-    public LoginResponseDto login(String email, String password) {
+    public LoginResDto login(String email, String password) {
         User findUser = userRepository.findUserByEmailOrElseThrow(email);
         if (!findUser.getPassword().equals(password)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀 번호가 일치하지 않습니다.");
         }
-        return new LoginResponseDto(findUser.getId());
+        return new LoginResDto(findUser.getId());
     }
 }
