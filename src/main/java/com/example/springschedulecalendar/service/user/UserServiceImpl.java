@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(findUser);
     }
 
+    // 유저 로그인
     @Override
     public LoginResponseDto login(String email, String password) {
         User findUser = userRepository.findUserByEmailOrElseThrow(email);

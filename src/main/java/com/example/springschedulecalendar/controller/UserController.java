@@ -65,6 +65,7 @@ public class UserController {
         }
     }
 
+    // id로 유저 조회
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> findById(@PathVariable Long id) {
         UserResponseDto userResponseDto = userService.findById(id);
@@ -81,6 +82,7 @@ public class UserController {
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
 
+    // 유저 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id, @RequestBody DeleteUserRequestDto dto) {
         userService.deleteUser(id, dto.getPassword());
