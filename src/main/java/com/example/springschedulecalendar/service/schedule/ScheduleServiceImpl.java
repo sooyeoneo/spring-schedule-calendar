@@ -8,7 +8,9 @@ import com.example.springschedulecalendar.repository.schedule.ScheduleRepository
 import com.example.springschedulecalendar.repository.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -56,5 +58,14 @@ public class ScheduleServiceImpl implements ScheduleService {
         schedule.updateSchedule(title, contents); // 수정일도 추가
 
         return new ScheduleResponseDto(schedule.getId(), schedule.getUserId(), schedule.getTitle(), schedule.getContents());
+    }
+
+    // 일정 삭제
+    @Override
+    public void delete(Long id, String password){
+
+        Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
+        Password(findSchedule.getUserId(),password);
+        scheduleRepository.delete(findSchedule);
     }
 }

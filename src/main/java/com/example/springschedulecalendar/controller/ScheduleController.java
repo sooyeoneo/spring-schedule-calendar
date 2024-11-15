@@ -1,6 +1,7 @@
 package com.example.springschedulecalendar.controller;
 
 import com.example.springschedulecalendar.dto.schedule.CreateScheduleRequestDto;
+import com.example.springschedulecalendar.dto.schedule.DeleteScheduleRequestDto;
 import com.example.springschedulecalendar.dto.schedule.ScheduleResponseDto;
 import com.example.springschedulecalendar.dto.schedule.UpdateScheduleRequestDto;
 import com.example.springschedulecalendar.dto.user.UserResponseDto;
@@ -9,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,5 +66,13 @@ public class ScheduleController {
             HttpServletRequest request
     ) {
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);
+    }
+
+    //일정 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(
+            @PathVariable Long id, @RequestBody DeleteScheduleRequestDto dto){
+        scheduleService.delete(id,dto.getPassword());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
