@@ -28,6 +28,9 @@ public class User extends BaseEntity {
     private String userName;
 
     @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
@@ -37,9 +40,9 @@ public class User extends BaseEntity {
 
     }
 
-//    public User(String userName, String email, String password) {
-//        this.userName = userName;
-//        this.email = email;
-//        this.password = password;
-//    }
+    public User(String userName, String email, String password) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+    }
 }
