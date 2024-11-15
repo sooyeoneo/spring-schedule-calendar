@@ -44,7 +44,17 @@ public class ScheduleServiceImpl implements ScheduleService {
     public ScheduleResponseDto findById(Long id) {
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
 
-        return new ScheduleResponseDto(schedule.getId(), schedule.getUserId(), schedule.getTitle(),schedule.getContents());
+        return new ScheduleResponseDto(
+                schedule.getId(), schedule.getUserId(), schedule.getTitle(),schedule.getContents()
+        );
     }
 
+    // 일정 수정
+    @Override
+    public ScheduleResponseDto update(Long id, Long userId, String title, String contents) {
+        Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
+        schedule.updateSchedule(title, contents); // 수정일도 추가
+
+        return new ScheduleResponseDto(schedule.getId(), schedule.getUserId(), schedule.getTitle(), schedule.getContents());
+    }
 }
