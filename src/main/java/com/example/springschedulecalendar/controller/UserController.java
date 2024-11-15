@@ -1,8 +1,8 @@
 package com.example.springschedulecalendar.controller;
 
-import com.example.springschedulecalendar.dto.SignUpRequestDto;
-import com.example.springschedulecalendar.dto.SignUpResponseDto;
-import com.example.springschedulecalendar.service.UserServiceImpl;
+import com.example.springschedulecalendar.dto.user.SignUpRequestDto;
+import com.example.springschedulecalendar.dto.user.SignUpResponseDto;
+import com.example.springschedulecalendar.service.user.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
