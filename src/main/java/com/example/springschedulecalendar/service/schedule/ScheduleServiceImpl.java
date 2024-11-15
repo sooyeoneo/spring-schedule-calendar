@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -52,6 +53,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     // 일정 수정
+    @Transactional
     @Override
     public ScheduleResponseDto update(Long id, Long userId, String title, String contents) {
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
@@ -65,7 +67,16 @@ public class ScheduleServiceImpl implements ScheduleService {
     public void delete(Long id, String password){
 
         Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
-        Password(findSchedule.getUserId(),password);
+        matchPassword(findSchedule.getUserId(),password);
         scheduleRepository.delete(findSchedule);
+    }
+
+    // 비밀 번호 일치 여부 확인
+    private void matchPassword(String email, String password) {
+        User user = userRepository.findUserByEmailOrElseThrow(email);
+        if (!matches(password, user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀 번호가 일치하지 않습니다.");
+        }
+
     }
 }
