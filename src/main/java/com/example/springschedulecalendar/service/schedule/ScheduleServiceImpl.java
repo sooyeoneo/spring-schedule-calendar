@@ -48,7 +48,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
 
         return new ScheduleResponseDto(
-                schedule.getId(), schedule.getUserId(), schedule.getTitle(),schedule.getContents()
+                schedule.getId(), schedule.getUser().getId(), schedule.getTitle(),schedule.getContents()
         );
     }
 
@@ -59,7 +59,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
         schedule.updateSchedule(title, contents); // 수정일도 추가
 
-        return new ScheduleResponseDto(schedule.getId(), schedule.getUserId(), schedule.getTitle(), schedule.getContents());
+        return new ScheduleResponseDto(schedule.getId(), schedule.getUser().getId(), schedule.getTitle(), schedule.getContents());
     }
 
     // 일정 삭제

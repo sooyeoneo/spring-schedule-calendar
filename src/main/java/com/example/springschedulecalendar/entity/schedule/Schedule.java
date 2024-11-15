@@ -41,10 +41,11 @@ public class Schedule extends BaseEntity {
 
     }
 
-    public Long getUserId() {
-        User user = this.getUser();
-        return user.getId();
-    }
+//    public Long getUserId() {
+//        User user = this.getUser();
+//        return user.getId();
+//    }
+// 순환 참조 ...? 암튼 오류 ..? 양방향...
 
     public void updateSchedule(String title, String contents) {
         this.title = title;

@@ -40,7 +40,7 @@ public class ScheduleController {
                         dto.getContents()
                 );
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(scheduleResponseDto, HttpStatus.CREATED);
     }
 
     // 일정 전체 조회

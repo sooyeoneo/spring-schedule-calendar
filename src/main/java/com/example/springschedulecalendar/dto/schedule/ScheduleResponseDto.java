@@ -21,7 +21,7 @@ public class ScheduleResponseDto {
 
     public ScheduleResponseDto(Schedule schedule) {
         this.id = schedule.getId();
-        this.userId = schedule.getUserId();
+        this.userId = schedule.getUser().getId();
         this.title = schedule.getTitle();
         this.contents = schedule.getContents();
     }
