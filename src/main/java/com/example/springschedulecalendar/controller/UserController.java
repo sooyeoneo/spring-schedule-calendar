@@ -79,8 +79,9 @@ public class UserController {
 
     // 유저 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id, @RequestBody DeleteUserReqDto dto) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id, @RequestBody DeleteUserReqDto dto, HttpServletRequest request) {
         userService.deleteUser(id, dto.getPassword());
+        this.logout(request);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
